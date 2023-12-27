@@ -1,12 +1,12 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import classes from "./Cart.module.css";
 import Modal from "../UI/Modal";
 import CartContext from "../../store/cart-context";
 import CartItem from "./CartItem";
+import Checkout from "./Checkout";
 const Cart = (props) => {
+  const [isChkout, setIsChkout] = useState(false);
   const cartCtx = useContext(CartContext);
-  console.log("cartCtx ====>", cartCtx);
-  console.log(props);
 
   const totalAmount = `$${cartCtx.totalAmount.toFixed(2)}`;
   const hasItems = cartCtx.items.length > 0;
@@ -16,6 +16,11 @@ const Cart = (props) => {
   };
   const cartItemAddHandler = (item) => {
     cartCtx.addItem({ ...item, amount: 1 });
+  };
+
+  const orderHandler = (e) => {
+    e.preventDefault();
+    setIsChkout(true);
   };
 
   const cartItems = (
@@ -32,13 +37,19 @@ const Cart = (props) => {
       ))}
     </ul>
   );
-  //   const cartItems = (
-  //     <ul className={classes["cart-items"]}>
-  //       {[{ id: "c1", name: "Sushi", amount: 2, price: 12.99 }].map((item) => (
-  //         <li key={item.id}>{item.name}</li>
-  //       ))}
-  //     </ul>
-  //   );
+
+  const modalAction = (
+    <div className={classes.actions}>
+      <button onClick={props.onClose} className={classes["button--alt"]}>
+        Cloose
+      </button>
+      {hasItems && (
+        <button onClick={orderHandler} className={classes.button}>
+          Order
+        </button>
+      )}
+    </div>
+  );
   return (
     <Modal onClose={props.onClose}>
       {cartItems}
@@ -46,12 +57,8 @@ const Cart = (props) => {
         <span>Total Amount</span>
         <span>{totalAmount}</span>
       </div>
-      <div className={classes.actions}>
-        <button onClick={props.onClose} className={classes["button--alt"]}>
-          Cloose
-        </button>
-        {hasItems && <button className={classes.button}>Order</button>}
-      </div>
+      {isChkout && <Checkout onCancle={props.onClose} />}
+      {!isChkout && modalAction}
     </Modal>
   );
 };

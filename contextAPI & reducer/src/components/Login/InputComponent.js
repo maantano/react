@@ -1,4 +1,4 @@
-import React, { useEffect, useImperativeHandle, useRef } from "react";
+import React, { useImperativeHandle, useRef } from "react";
 import classes from "./Login.module.css";
 
 const InputComponent = React.forwardRef((props, ref) => {

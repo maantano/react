@@ -1,3 +1,17 @@
+.addbutton {
+  cursor: pointer;
+  font: inherit;
+  border: none;
+  background-color: #4d1601;
+  color: white;
+  padding: 0.75rem 3rem;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  border-radius: 25px;
+  font-weight: bold;
+}
+
 .button {
   cursor: pointer;
   font: inherit;
@@ -21,6 +35,11 @@
   width: 1.35rem;
   height: 1.35rem;
   margin-right: 0.5rem;
+}
+.addicon {
+  width: 1rem;
+  height: 1rem;
+  margin-right: 1.5rem;
 }
 
 .badge {

@@ -51,10 +51,6 @@ const passwordReducer = (state, action) => {
 
 const Login = (props) => {
   const ctx = useContext(AuthContext);
-  // const [enteredEmail, setEnteredEmail] = useState("");
-  // const [emailIsValid, setEmailIsValid] = useState();
-  // const [enteredPassword, setEnteredPassword] = useState("");
-  // const [passwordIsValid, setPasswordIsValid] = useState();
   const [formIsValid, setFormIsValid] = useState(false);
   const [emailState, dispatchEmail] = useReducer(emailReducer, {
     value: "",
@@ -81,53 +77,23 @@ const Login = (props) => {
   }, [emailIsValid, passwordIsValid]);
 
   const emailChangeHandler = (event) => {
-    // setEnteredEmail(event.target.value);
-    // console.log(
-    //   "emailChangeHandler | event.target.value ===>",
-    //   event.target.value
-    // );
-    console.log(
-      'emailState.value.includes("@") ---->',
-      emailState.value.includes("@")
-    );
     dispatchEmail({ type: "USER_INPUT", val: event.target.value });
-    // setFormIsValid(emailState.value.includes("@") && passwordState.isValid);
-
-    // setEnteredEmail(event.target.value);
-    // setFormIsValid(
-    //   event.target.value.includes("@") && enteredPassword.trim().length > 6
-    // );
   };
 
   const passwordChangeHandler = (event) => {
-    // console.log(
-    //   "passwordChangeHandler | event.target.value ===>",
-    //   event.target.value
-    // );
     dispatchPassword({ type: "USER_PW", val: event.target.value });
-    // setFormIsValid(
-    //   event.target.value.trim().length > 6 && emailState.value.includes("@")
-    // );
-
-    // setEnteredPassword(event.target.value);
-    // setFormIsValid(
-    //   event.target.value.trim().length > 6 && enteredEmail.includes("@")
-    // );
   };
 
   const validateEmailHandler = () => {
-    // setEmailIsValid(emailState.isValid);
     dispatchEmail({ type: "INPUT_BLUR" });
   };
 
   const validatePasswordHandler = () => {
-    // setPasswordIsValid(enteredPassword.trim().length > 6);
     dispatchPassword({ type: "INPUT_BLUR" });
   };
 
   const submitHandler = (event) => {
     event.preventDefault();
-    // console.log("submitHandler || formIsValid ===>", formIsValid);
     if (formIsValid) {
       ctx.onLogin(emailState.value, passwordState.value);
     } else if (!emailIsValid) {
@@ -135,9 +101,7 @@ const Login = (props) => {
     } else {
       passwordInputRef.current.focus();
     }
-    // props.onLogin(enteredEmail, enteredPassword);
   };
-  // emailState.isValid
 
   return (
     <Card className={classes.login}>
