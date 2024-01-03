@@ -6,6 +6,8 @@ import CartItem from "./CartItem";
 import Checkout from "./Checkout";
 const Cart = (props) => {
   const [isChkout, setIsChkout] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [didSubmit, setDidSubmit] = useState(false);
   const cartCtx = useContext(CartContext);
 
   const totalAmount = `$${cartCtx.totalAmount.toFixed(2)}`;
@@ -21,6 +23,28 @@ const Cart = (props) => {
   const orderHandler = (e) => {
     e.preventDefault();
     setIsChkout(true);
+  };
+
+  const submitHandler = async (userData) => {
+    setIsSubmitting(true);
+    await fetch(
+      "https://customhook-d4e12-default-rtdb.firebaseio.com/order.json",
+      {
+        method: "POST",
+        body: JSON.stringify({ user: userData, orderedItems: cartCtx.items }),
+      }
+    );
+    setIsSubmitting(false);
+    setDidSubmit(true);
+    cartCtx.clearCart();
+    // const response = await fetch(
+    //   "https://customhook-d4e12-default-rtdb.firebaseio.com/order.json",
+    //   {
+    //     method: "POST",
+    //     body: JSON.stringify({ user: userData, orderedItems: cartCtx.items }),
+    //   }
+    // );
+    // response 변수에 담아서 에러 처리나 이런것들이 가능하다.
   };
 
   const cartItems = (
@@ -50,15 +74,47 @@ const Cart = (props) => {
       )}
     </div>
   );
-  return (
-    <Modal onClose={props.onClose}>
+
+  const cartModalContent = (
+    <>
       {cartItems}
       <div className={classes.total}>
         <span>Total Amount</span>
         <span>{totalAmount}</span>
       </div>
-      {isChkout && <Checkout onCancle={props.onClose} />}
+      {isChkout && (
+        <Checkout onConfirm={submitHandler} onCancle={props.onClose} />
+      )}
       {!isChkout && modalAction}
+    </>
+  );
+
+  const isSubmittingModalContent = <p>Sending order data../</p>;
+  const didSubmittingModalConetnt = (
+    <>
+      <p>Successfully send the order!</p>
+      <div className={classes.actions}>
+        <button onClick={props.onClose} className={classes.button}>
+          Cloose
+        </button>
+      </div>
+    </>
+  );
+
+  return (
+    <Modal onClose={props.onClose}>
+      {!isSubmitting && !didSubmit && cartModalContent}
+      {isSubmitting && isSubmittingModalContent}
+      {!isSubmitting && didSubmit && didSubmittingModalConetnt}
+      {/* {cartItems}
+      <div className={classes.total}>
+        <span>Total Amount</span>
+        <span>{totalAmount}</span>
+      </div>
+      {isChkout && (
+        <Checkout onConfirm={submitHandler} onCancle={props.onClose} />
+      )}
+      {!isChkout && modalAction} */}
     </Modal>
   );
 };
