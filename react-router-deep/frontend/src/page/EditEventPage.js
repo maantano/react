@@ -1,13 +1,19 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { useRouteLoaderData } from "react-router-dom";
+import EventForm from "../components/EventForm";
 
 const EditEventPage = () => {
-  const params = useParams();
+  const data = useRouteLoaderData("event-detail");
+  // Router의 Id를 받아서 데이터를 로더 시킨다.
+  // const data = useLoaderData();
+  // const params = useParams();
+  // console.log(params);
 
   return (
     <>
-      <h1>Edit Event Page</h1>
-      <p>{params.id}</p>
+      <EventForm method="patch" event={data.event} />
+      {/* <h1>Edit Event Page</h1> */}
+      {/* <p>{params.id}</p> */}
     </>
   );
 };

@@ -1,11 +1,1 @@
-{
-  "events": [
-    {
-      "id": "e1",
-      "title": "A dummy event",
-      "date": "2023-02-22",
-      "image": "https://blog.hubspot.de/hubfs/Germany/Blog_images/Optimize_Marketing%20Events%20DACH%202021.jpg",
-      "description": "Join this amazing event and connect with fellow developers."
-    }
-  ]
-}
+{"events":[{"title":"antonyyyyyy----","image":"https://www.telegraph.co.uk/content/dam/football/2023/12/06/TELEMMGLPICT000355208797_17018647282070_trans_NvBQzQNjv4BqL0DEhMYFNSSztlOCyvY8Gc3KOYVPGFPLIoDS0KSFOG4.jpeg?imwidth=960","date":"2024-01-04","description":"Antony","id":"55f4baac-a30a-465b-ac5e-c3c7a31f6f61"},{"title":"gggg","image":"https://cdn.spochoo.com/news/photo/202309/106431_213584_812.png","date":"2024-01-05","description":"ggg","id":"1df957a4-3c09-4382-bdbc-340447402a81"},{"id":"e1","title":"A dummy event","date":"2023-02-22","image":"https://blog.hubspot.de/hubfs/Germany/Blog_images/Optimize_Marketing%20Events%20DACH%202021.jpg","description":"Join this amazing event and connect with fellow developers."}]}
